@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>劉書語的 AI 作品集</title>
+<style>
+  :root{
+    --navy:#1e3a5f;
+    --navy-deep:#122943;
+    --orange:#fc7e15;
+    --orange-soft:#ffe6cf;
+    --paper:#ffffff;
+    --ink:#1a2530;
+    --ink-soft:#5b6b7a;
+    --line:#e3e8ee;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Inter","Microsoft JhengHei","PingFang TC","Segoe UI",system-ui,sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--orange);}
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- Header / Hero ---------- */
+  header.hero{
+    background:linear-gradient(160deg,var(--navy) 0%,var(--navy-deep) 100%);
+    color:#fff;
+    padding:72px 0 56px;
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute;
+    right:-80px; top:-80px;
+    width:280px; height:280px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, var(--orange) 0%, transparent 70%);
+    opacity:0.35;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--orange);
+    font-weight:600;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:2px;
+    background:var(--orange);
+    display:inline-block;
+  }
+  h1.name{
+    font-size:clamp(32px,6vw,52px);
+    margin:0 0 10px;
+    font-weight:800;
+    letter-spacing:-0.02em;
+  }
+  .tagline{
+    font-size:clamp(16px,2.4vw,19px);
+    color:#cfe0f2;
+    max-width:560px;
+    margin:0;
+  }
+  .badge-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:28px;
+  }
+  .badge{
+    font-size:13px;
+    padding:6px 14px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,0.28);
+    color:#fff;
+    background:rgba(255,255,255,0.06);
+  }
+
+  /* ---------- Section shell ---------- */
+  section{padding:56px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:28px;
+  }
+  .section-num{
+    font-family:"Inter",monospace;
+    font-size:13px;
+    color:var(--orange);
+    font-weight:700;
+    letter-spacing:.06em;
+    border:1px solid var(--orange-soft);
+    background:var(--orange-soft);
+    border-radius:6px;
+    padding:2px 8px;
+  }
+  h2.section-title{
+    font-size:clamp(20px,3vw,26px);
+    margin:0;
+    color:var(--navy-deep);
+    font-weight:800;
+  }
+
+  /* ---------- Section 1: summary ---------- */
+  .summary-card{
+    background:#f7f9fc;
+    border-left:4px solid var(--navy);
+    border-radius:8px;
+    padding:26px 28px;
+    font-size:16px;
+    color:var(--ink);
+  }
+  .summary-card p{margin:0 0 14px;}
+  .summary-card p:last-child{margin-bottom:0;}
+  .summary-card strong{color:var(--navy-deep);}
+
+  /* ---------- Section 2: presentation embed ---------- */
+  .embed-desc{color:var(--ink-soft);margin:0 0 18px;font-size:15px;}
+  .embed-frame{
+    position:relative;
+    width:100%;
+    padding-top:62%;
+    border-radius:10px;
+    overflow:hidden;
+    background:var(--navy-deep);
+    box-shadow:0 12px 30px rgba(18,41,67,0.18);
+  }
+  .embed-frame iframe{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    border:0;
+  }
+  .embed-fallback{
+    display:inline-block;
+    margin-top:14px;
+    font-size:14px;
+    color:var(--navy);
+    font-weight:600;
+  }
+
+  /* ---------- Section 3: highlights ---------- */
+  .highlight-list{
+    display:grid;
+    gap:18px;
+  }
+  .highlight{
+    display:grid;
+    grid-template-columns:52px 1fr;
+    gap:18px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:20px 22px;
+  }
+  .highlight .tag{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:14px;
+    color:#fff;
+    background:var(--navy);
+    border-radius:8px;
+    height:40px;
+  }
+  .highlight h3{
+    margin:0 0 6px;
+    font-size:16px;
+    color:var(--navy-deep);
+  }
+  .highlight p{
+    margin:0;
+    font-size:14.5px;
+    color:var(--ink-soft);
+  }
+  details.highlight-detail{margin-top:32px;}
+  details.highlight-detail summary{
+    cursor:pointer;
+    font-weight:700;
+    color:var(--navy);
+    font-size:15px;
+    padding:10px 0;
+  }
+  .detail-body{
+    font-size:15px;
+    color:var(--ink);
+    background:#f7f9fc;
+    border-radius:8px;
+    padding:22px 24px;
+    margin-top:8px;
+  }
+  .detail-body p{margin:0 0 14px;}
+  .detail-body p:last-child{margin-bottom:0;}
+
+  /* ---------- Section 4: direction ---------- */
+  .direction-card{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-deep) 100%);
+    color:#fff;
+    border-radius:12px;
+    padding:30px 32px;
+    position:relative;
+    overflow:hidden;
+  }
+  .direction-card::before{
+    content:"「」";
+    position:absolute;
+    right:20px; top:-6px;
+    font-size:90px;
+    color:rgba(252,126,21,0.18);
+    font-family:Georgia,serif;
+  }
+  .direction-card h3{
+    margin:0 0 10px;
+    font-size:17px;
+    color:var(--orange);
+  }
+  .direction-card p{
+    margin:0;
+    font-size:15.5px;
+    color:#e4edf5;
+    max-width:640px;
+  }
+  .keyword-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:20px;
+  }
+  .keyword{
+    font-size:13px;
+    font-weight:600;
+    padding:5px 12px;
+    border-radius:999px;
+    background:rgba(252,126,21,0.16);
+    color:var(--orange);
+    border:1px solid rgba(252,126,21,0.4);
+  }
+
+  /* ---------- Section 5: contact ---------- */
+  .contact-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+  .contact-pill{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 20px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    text-decoration:none;
+    color:var(--ink);
+    font-size:15px;
+    font-weight:600;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .contact-pill:hover{border-color:var(--orange);transform:translateY(-2px);}
+  .contact-pill .icon{
+    width:34px; height:34px;
+    border-radius:8px;
+    background:var(--navy);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:15px;
+    flex-shrink:0;
+  }
+
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    color:var(--ink-soft);
+    font-size:13px;
+  }
+
+  @media (max-width:600px){
+    header.hero{padding:52px 0 40px;}
+    section{padding:40px 0;}
+    .highlight{grid-template-columns:40px 1fr;padding:16px;}
+    .direction-card{padding:24px 20px;}
+    .contact-pill{width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">AI 實戰養成班 · 結業作品集</div>
+    <h1 class="name">劉書語 的 AI 作品集</h1>
+    <p class="tagline">應用日語 × 物流數據分析 / 4 週青年 AI 實戰養成班報告</p>
+    <div class="badge-row">
+      <span class="badge">JLPT N1</span>
+      <span class="badge">TOEIC 605</span>
+      <span class="badge">泰文中級</span>
+      <span class="badge">國立臺中科技大學 應用日語系</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Section 1 -->
+  <section id="summary">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2 class="section-title">4 週學習摘要</h2>
+    </div>
+    <div class="summary-card">
+      <p><strong>基本簡介 —</strong> 劉書語，國立臺中科技大學應用日語系學生，具備 JLPT N1、TOEIC 605 分與泰文中級檢定，能進行多語跨文化溝通。曾赴日本大阪交換留學一年，於藥妝店打工累積服務禮儀，並參與關西萬博「WE TAIWAN」及大阪寵物展展務工作，培養快速應變與團隊協作能力。</p>
+      <p><strong>核心優勢 —</strong> 透過 4 週 AI 實戰養成班，將語言專長延伸至資料分析與物流管理領域：從 RFM 客戶分群中理解資料品質對決策的影響，到供應商風險評估、倉儲儲位二維分析，再到 AI 四層架構的應用與校準，建立起「用企業的語言思考」的能力。</p>
+      <p><strong>學習動機與未來規劃 —</strong> 渴望運用自己的語言優勢與國際視野，將企業數據思維帶入台日交流領域，未來成為促進台日觀光與商務往來的橋樑。</p>
+    </div>
+  </section>
+
+  <!-- Section 2 -->
+  <section id="presentation">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2 class="section-title">BOSS_I 簡報（NotebookLM）</h2>
+    </div>
+    <p class="embed-desc">4 週青年 AI 實戰成果發表</p>
+    <div class="embed-frame">
+      <iframe src="https://drive.google.com/file/d/1SStgnIhFQQ222A1ogCRgDX0SZq6ZZEvJ/preview" allow="autoplay" title="BOSS_I 簡報"></iframe>
+    </div>
+    <a class="embed-fallback" href="https://drive.google.com/file/d/1SStgnIhFQQ222A1ogCRgDX0SZq6ZZEvJ/view?usp=sharing" target="_blank" rel="noopener">開啟簡報原始連結 →</a>
+  </section>
+
+  <!-- Section 3 -->
+  <section id="highlights">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2 class="section-title">學習亮點</h2>
+    </div>
+    <div class="highlight-list">
+      <div class="highlight">
+        <div class="tag">W1</div>
+        <div>
+          <h3>資料清洗決定決策品質</h3>
+          <p>在 RFM 客戶分群中，同一批銷售數據經清洗（移除異常值、統一時間格式）與否，客戶等級判讀結果相差達 23%，證明資料品質直接決定商業決策的正確性。</p>
+        </div>
+      </div>
+      <div class="highlight">
+        <div class="tag">W2</div>
+        <div>
+          <h3>用變異係數揭穿「假優良」供應商</h3>
+          <p>供應商 SUP-03 交期最短（10.6 天）卻交期變異係數高達 80%，迫使企業多囤安全庫存反推高呆滯金額——解決了「只看平均交期」誤判供應商風險的問題。</p>
+        </div>
+      </div>
+      <div class="highlight">
+        <div class="tag">W2</div>
+        <div>
+          <h3>IK × IQ 二維分析重排倉儲儲位</h3>
+          <p>單靠銷售量排序（量基 ABC）只解決一半問題，改用訂購頻次（IK）與出貨量（IQ）二維分析，找出 7 檔離群 SKU 並優化上架高度，同時降低職傷與加快揀貨。</p>
+        </div>
+      </div>
+      <div class="highlight">
+        <div class="tag">W3-4</div>
+        <div>
+          <h3>AI 四層架構：AI 給方向，人給煞車</h3>
+          <p>精準行銷引擎透過感知、記憶、解讀、代理四層架構自動執行，但校準 AI 建議時仍需以自家實際數據為煞車，說明 AI 是工具、人類判斷力才是終局。</p>
+        </div>
+      </div>
+    </div>
+
+    <details class="highlight-detail">
+      <summary>展開完整反思：四週的三個關鍵收穫 &amp; 世界觀的翻轉</summary>
+      <div class="detail-body">
+        <p>W1 資料驅動師的第一堂課，讓我明白數據「清洗」不是小事——同樣的銷售數據，清洗與否讓 RFM 客戶分群結果差了 23%，第一次感受到「資料品質直接決定決策品質」。</p>
+        <p>W2 管理工程師的物流控制塔專案帶來最大的眼界開闊：交期最短的供應商反而最危險，因為交期變異係數過高；倉儲儲位問題也顯示，單用銷售量排序只解決一半問題，唯有 IK/IQ 二維分析才能真正找出優化空間。這讓我明白，企業的每一個流程都能被數據量化、優化、甚至預測。</p>
+        <p>W3 AI 價值師與 W4 智慧架構師則讓我看到更高層的想像：AI 不是萬靈丹，而是感知、記憶、解讀、代理四層架構的協作系統。校準 AI 建議時，AI 給方向、自家實際數據給煞車——那一刻我懂了，AI 只是工具，人類的判斷力才是終局。</p>
+        <p>我是應用日語系今年畢業生，一開始報名這門課只是好奇企業怎麼運作。八週最大的世界觀轉變是：企業不是「決策者一人拍板」，而是「系統化、可視化、可驗算的決策流程」——每一筆訂單被追蹤、每一個供應商被評分、每一次倉儲重排都能精確計算成效。最反轉的認知是「交期短不等於好供應商」，表面指標會騙人，得看變異係數與呆滯成本才看得懂真實的商業邏輯。</p>
+        <p>現在，當我看到招聘「商務分析師」或「物流管理」時，我不再感到陌生，而是能想像那份工作每天要讀懂的儀表板與數據語言。企業的語言，其實就是數據——我現在可以用企業的語言思考，而不只是用日文系的語言思考了。</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- Section 4 -->
+  <section id="direction">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2 class="section-title">我想接的題目方向</h2>
+    </div>
+    <div class="direction-card">
+      <h3>用企業的語言思考：物流 × AI 的實務應用</h3>
+      <p>希望承接能結合物流數據分析與 AI 決策輔助的題目——當看到「商務分析師」或「物流管理」職缺時，我能想像自己每天讀懂儀表板上的 IK/IQ 二維分析、看懂司機 × 路線矩陣、判讀「LT 變異係數 &gt; 0.3 即為風險」等企業數據語言，並將其轉譯為可執行的決策建議。</p>
+      <div class="keyword-row">
+        <span class="keyword">物流控制塔 / 供應商風險評估</span>
+        <span class="keyword">倉儲儲位優化（IK/IQ 分析）</span>
+        <span class="keyword">台日觀光產業 DX 數位轉型</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5 -->
+  <section id="contact">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <h2 class="section-title">聯絡資訊</h2>
+    </div>
+    <div class="contact-row">
+      <a class="contact-pill" href="mailto:emilyliu0314@gmail.com">
+        <span class="icon">@</span>
+        emilyliu0314@gmail.com
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 劉書語 · 4 週青年 AI 實戰養成班 · BOSS_II 作品集
+</footer>
+
+</body>
+</html>
